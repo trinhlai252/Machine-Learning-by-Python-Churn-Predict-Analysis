@@ -96,25 +96,11 @@ An ecommerce firm is initiating a project aimed at predicting chunrned users in 
 
 ## IV. Process
 ### Data Handling and Cleaning
-<img width="921" alt="st1" src="https://github.com/user-attachments/assets/35d617d6-2bc5-44fc-bfeb-9fe139bde68f">
+* Define type of data
+* Check duplicate data, remove if have
+* Check missing/null data. Draw a box plot of each column with null data to decide whether to replace it with the mean, median, or mode.
 
-### Step 2 -  Define point of view
-<img width="920" alt="st2" src="https://github.com/user-attachments/assets/0dc7a56a-3102-4708-8afd-42041c9061fb">
-
-### Step 3 - Ideate
-<img width="920" alt="st3" src="https://github.com/user-attachments/assets/92d95080-2623-45f2-84dc-05680db34bed">
-
-### Step 4 - Prototype and Review
-
-
-## III. Visualization
-### 1. Overview
-<img width="631" alt="page 1" src="https://github.com/user-attachments/assets/85ba7812-859a-4b62-b696-99e5de2db99f">
-
-### 2. Segment Dashboard
-<img width="639" alt="page 2" src="https://github.com/user-attachments/assets/293de318-70fe-43b0-b151-05265a36e681">
-
-### 3. Customer Dashboard
-<img width="650" alt="page 3" src="https://github.com/user-attachments/assets/ef37ccb3-01f8-48a0-8fa3-88ed6b3cc87a">
+### EDA
+### WarehouseToHome, HourSpendOnApp, CashbackAmount
 
 ## V. Conclusion
