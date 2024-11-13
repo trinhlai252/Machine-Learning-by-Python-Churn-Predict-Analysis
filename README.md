@@ -209,4 +209,13 @@ An ecommerce firm is initiating a project aimed at predicting chunrned users in 
 |2|Laptop & Accessory|2050|210|10\.24|
 |5|Others|264|20|7\.58|
 |1|Grocery|410|20|4\.88|
+
+### Model training
+We proceed with the following steps:
+* Feature Transforming
+* Split train/validate/test set
+* Normalization for each set
+* Apply mode
+* Model evaluation and choose better model
+* and hyperparameter tuning
 ## V. Conclusion
