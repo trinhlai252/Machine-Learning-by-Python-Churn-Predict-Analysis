@@ -283,4 +283,4 @@ We use GridSearchCV to optimize the parameters of the RandomForestClassifier mod
 | Model               | balanced_accuracy_train | balanced_accuracy_val |
 | ------------------- | ----------------------- | --------------------- |
 | Random Forest       | 1                       | 0.92             |
-## V. Conclusion
+
