@@ -109,13 +109,14 @@ An ecommerce firm is initiating a project aimed at predicting chunrned users in 
 #### Tenure
 |index|tenure|total\_cus|churn\_cus|churn\_ratio|
 |---|---|---|---|---|
-|0|0\.0|508|272|53\.54330708661418|
-|1|1\.0|690|349|50\.57971014492754|
-|9|9\.0|511|93|18\.199608610567513|
-|20|20\.0|109|16|14\.678899082568808|
-|21|21\.0|84|10|11\.904761904761903|
+|0|0\.0|508|272|53\.54|
+|1|1\.0|690|349|50\.58|
+|9|9\.0|511|93|18\.2|
+|20|20\.0|109|16|14\.68|
+|21|21\.0|84|10|11\.91|
 
-![image](https://github.com/user-attachments/assets/d1778906-fdb7-466a-9c66-6fe5a4d5b1c3)
+![image](https://github.com/user-attachments/assets/2021d1fb-5ed8-4e19-85c4-fed326e2779d)
+
 
 #### Citytier
 |index|citytier|total\_cus|churn\_cus|churn\_ratio|
@@ -124,7 +125,7 @@ An ecommerce firm is initiating a project aimed at predicting chunrned users in 
 |1|2|242|48|19\.83|
 |0|1|3666|532|14\.51|
 
-![image](https://github.com/user-attachments/assets/44e38eba-b369-41a9-b466-dfeb8d181d2b)
+![image](https://github.com/user-attachments/assets/5420ef99-18fd-49e7-885e-dee0087866d7)
 
 
 #### Numberofdevice
@@ -165,9 +166,9 @@ An ecommerce firm is initiating a project aimed at predicting chunrned users in 
 |13|21|1|0|0\.0|
 |14|22|1|0|0\.0|
 
-![image](https://github.com/user-attachments/assets/cbab9e09-0d53-413d-b651-6140dd5c807a)
+![image](https://github.com/user-attachments/assets/54cb6dbd-e8de-4b63-8b0a-9f9e9a6c8f71)
 
-#### Complain
+#### complain
 |index|complain|total\_cus|churn\_cus|churn\_ratio|
 |---|---|---|---|---|
 |1|1|1604|508|31\.67|
@@ -200,7 +201,7 @@ An ecommerce firm is initiating a project aimed at predicting chunrned users in 
 |4|Debit Card|2314|356|15\.38|
 |3|Credit Card|1501|193|12\.86|
 
-#### PreferedOrderCat
+#### preferedOrderCat
 |index|preferedordercat|total\_cus|churn\_cus|churn\_ratio|
 |---|---|---|---|---|
 |4|Mobile Phone|1271|350|27\.54|
@@ -213,12 +214,25 @@ An ecommerce firm is initiating a project aimed at predicting chunrned users in 
 ### Model training
 We proceed with the following steps:
 * Feature Transforming
+* 
+  Feature Transformation removes unrelated columns, identifies categorical columns, and applies One-Hot Encoding to encode them.
 * Split train/validate/test set
+  We split the dataset into training, validation, and test sets. First, 70% of the data is allocated for training, while the remaining 30% is split equally into validation and test sets using train_test_split with a fixed random state for reproducibility.
+  
+| Subset                      | Number |
+| --------------------------- | ------ |
+| Number data of train set    | 3941   |
+| Number data of validate set | 844    |
+| Number data of test set     | 845    |
 * Normalization for each set
+
+MinMaxScaler to scale the feature values between 0 and 1
 * Apply mode
+
+  In this project, we use 2 most popular predict machine learning:  __Logistic Regression__ and __Random Forest__
 * Model evaluation and choose a better model
   
-  In this problems, we use balanced accuracy as evaluate metric
+  We use balanced accuracy as evaluate metric
   
 | Model               | balanced_accuracy_train | balanced_accuracy_val |
 | ------------------- | ----------------------- | --------------------- |
@@ -227,7 +241,7 @@ We proceed with the following steps:
 
 => We choose the Random Forest model
 * Hyperparameter tuning
-We use GridSearchCV to optimize the parameters of the RandomForestClassifier model based on the set of values ​​in param_grid. After finding the best set of parameters, the model is evaluated on the test set with the accuracy printed out.
+We use GridSearchCV to optimize the parameters of the RandomForestClassifier model based on the set of values ​​in param_grid. After finding the best set of parameters, the model is evaluated on the test set with the accuracy metrics.
 
 | Model               | balanced_accuracy_train | balanced_accuracy_val |
 | ------------------- | ----------------------- | --------------------- |
