@@ -1,7 +1,7 @@
 # Python-Churn-Predict-Analysis
 
 ## I. Introduction
-In this project, I works on  machine learning models to predict user churn for an e-commerce company. The model is being developed using Python on Google Colab with relevant data for analysis.
+In this project, I work on  machine learning models to predict user churn for an e-commerce company. The model is being developed using Python on Google Colab with relevant data for analysis.
 ## II. Business question
 An ecommerce firm is initiating a project aimed at predicting chunrned users in order to offer potential promotions. The accompanying dataset provided by the company (churn_predict.csv) will be employed to address the following questions
 * Build the Machine Learning model for predicting churned users. (fine tuning) 
