@@ -216,6 +216,20 @@ We proceed with the following steps:
 * Split train/validate/test set
 * Normalization for each set
 * Apply mode
-* Model evaluation and choose better model
-* and hyperparameter tuning
+* Model evaluation and choose a better model
+  
+  In this problems, we use balanced accuracy as evaluate metric
+  
+| Model               | balanced_accuracy_train | balanced_accuracy_val |
+| ------------------- | ----------------------- | --------------------- |
+| Logistic Regression | 0.7                     | 0.68                  |
+| Random Forest       | 1                       | 0.91                  |
+
+=> We choose the Random Forest model
+* Hyperparameter tuning
+We use GridSearchCV to optimize the parameters of the RandomForestClassifier model based on the set of values ​​in param_grid. After finding the best set of parameters, the model is evaluated on the test set with the accuracy printed out.
+
+| Model               | balanced_accuracy_train | balanced_accuracy_val |
+| ------------------- | ----------------------- | --------------------- |
+| Random Forest       | 1                       | 0.92             |
 ## V. Conclusion
