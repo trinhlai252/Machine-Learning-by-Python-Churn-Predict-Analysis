@@ -1,7 +1,8 @@
 # Python-Churn-Predict-Analysis
 
 ## I. Introduction
-This project contains an eCommerce dataset that I will explore using SQL on [Google BigQuery](https://cloud.google.com/bigquery). The dataset is based on the Google Analytics public dataset and contains data from an eCommerce website.
+About
+A machine learning churn prediction project 
 ## II. Business question
 An ecommerce firm is initiating a project aimed at predicting chunrned users in order to offer potential promotions. The accompanying dataset provided by the company (churn_predict.csv) will be employed to address the following questions
 * Build the Machine Learning model for predicting churned users. (fine tuning) 
@@ -197,6 +198,10 @@ An ecommerce firm is initiating a project aimed at predicting chunrned users in 
 => __complain__ is related to churn
 #### orderamounthike, couponused, ordercount, daysincelastorder
 ![image](https://github.com/user-attachments/assets/b77e9cc3-6b7e-4416-b5fe-072c340f522c)
+* __orderamounthike, couponused, ordercount__ : There is a similar distribution between the two groups _churn = 0_ and _churn = 1_. However, __couponused__ has a clear difference in outliers between the two groups.
+* __daysincelastorder__: _churn=0_ wider distribution, larger median and fewer outliers than _churn =1_
+
+=> __orderamounthike,  ordercount__ is not related. __daysincelastorder__ is related. __couponused__  maybe relate, need to check more
 
 #### gender
 |index|gender|total\_cus|churn\_cus|churn\_ratio|
@@ -265,7 +270,7 @@ MinMaxScaler to scale the feature values between 0 and 1
   In this project, we use 2 most popular predict machine learning:  __Logistic Regression__ and __Random Forest__
 * Model evaluation and choose a better model
   
-  We use balanced accuracy as evaluate metric
+  We use balanced accuracy to evaluate metric
   
 | Model               | balanced_accuracy_train | balanced_accuracy_val |
 | ------------------- | ----------------------- | --------------------- |
