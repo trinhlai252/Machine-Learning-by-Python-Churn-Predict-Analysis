@@ -55,11 +55,26 @@ print(null_check)
 col_null = null_check[null_check['null_percentage']>0].index.tolist()
 col_null
 
-for col in col_null:
-    plt.figure(figsize=(10, 6))  # Set the size of the plot
-    sns.boxplot(x=df[col])
-    plt.title(f'Boxplot of {col}')  # Title of the plot
-    plt.show()
+import math
+
+# Số cột mỗi hàng
+num_cols = 4
+num_rows = 2
+
+fig, axes = plt.subplots(num_rows, num_cols, figsize=(18, num_rows * 4))
+axes = axes.flatten()
+
+
+for i, col in enumerate(col_null):
+    sns.boxplot(x=df[col], ax=axes[i])
+    axes[i].set_title(f'Boxplot of {col}')
+
+
+for j in range(len(col_null), len(axes)):
+    fig.delaxes(axes[j])  # Xóa các ô thừa
+
+plt.tight_layout()
+plt.show()
 
 """nhật xét: các cột trên đều tồn tại outliers => replace null = median"""
 
@@ -80,15 +95,14 @@ label_ratio
 
 """##Check features"""
 
+#fuction calculate ratio
 def calculate_churn_ratio(df, column):
-
     count_customer = df.groupby(column).agg(
         total_cus=('customerid', 'count'),  # tổng cus
-        churn_cus=('churn', 'sum')        # số churn
+        churn_cus=('churn', 'sum')          # số churn
     ).reset_index()
 
-
-    count_customer['churn_ratio'] = count_customer['churn_cus'] / count_customer['total_cus'] * 100
+    count_customer['churn_ratio'] = (count_customer['churn_cus'] / count_customer['total_cus'] * 100).round(2)
 
     count_customer = count_customer.sort_values(by='churn_ratio', ascending=False)
 
@@ -96,13 +110,13 @@ def calculate_churn_ratio(df, column):
 
 """###Check density of some features: WarehouseToHome, HourSpendOnApp,	CashbackAmount"""
 
-cols = ['warehousetohome','hourspendonapp', 'cashbackamount']
+cols = ['warehousetohome', 'hourspendonapp', 'cashbackamount']
 num_cols = df[cols]
 
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(18, 4))
 
 for i, col in enumerate(cols, 1):
-    plt.subplot(len(cols), 1, i)
+    plt.subplot(1, len(cols), i)  # 1 hàng và 3 cột
     sns.kdeplot(num_cols[col], shade=True)
     plt.title(f'Density Distribution of {col}')
     plt.xlabel('Value')
@@ -112,13 +126,14 @@ plt.tight_layout()
 plt.show()
 
 cols = ['warehousetohome', 'hourspendonapp', 'cashbackamount']
-plt.figure(figsize=(8, 12))
+plt.figure(figsize=(12, 4))
 
 for i, col in enumerate(cols, 1):
-    plt.subplot(len(cols), 1, i)
+    plt.subplot(1, len(cols), i)  # 1 hàng và 3 cột
     sns.boxplot(data=df, x='churn', y=col)
 
-    plt.title(f'Distribution of {col} between Churn and Non-Churn')
+    # Dùng '\n' để xuống dòng trong tiêu đề
+    plt.title(f'Distribution of {col}\nbetween Churn and Non-Churn')
     plt.xlabel('Churn')
     plt.ylabel(col)
 
@@ -133,7 +148,7 @@ plt.show()
 tenure_churnrate = calculate_churn_ratio(df, 'tenure')
 tenure_churnrate.sort_values(by='churn_ratio', ascending=False).head(5)
 
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(6, 4))
 sns.boxplot(data=df, x='churn', y='tenure')
 plt.title('Distribution of Tenure between Churn and Non-Churn')
 plt.xlabel('Churn')
@@ -147,13 +162,6 @@ plt.show()
 
 citytier_churnrate = calculate_churn_ratio(df, 'citytier')
 citytier_churnrate.sort_values(by='churn_ratio', ascending=False)
-
-plt.figure(figsize=(8, 6))
-city_df = calculate_churn_ratio(df, 'citytier')
-sns.boxplot(data = city_df, y='churn_ratio')
-plt.title(f'Churn ratio Distribution of citytier')
-plt.xlabel('Value')
-plt.ylabel('Churn Ratio')
 
 """=> related
 
@@ -179,9 +187,9 @@ satisfaction_churnrate.sort_values(by='churn_ratio', ascending=False)
 numberaddress_churnrate = calculate_churn_ratio(df, 'numberofaddress')
 numberaddress_churnrate.sort_values(by='churn_ratio', ascending=False)
 
-plt.figure(figsize=(8, 6))  # Set the size of the plot
+plt.figure(figsize=(6,4))  # Set the size of the plot
 sns.boxplot(x=df['numberofaddress'])
-plt.title(f'Boxplot of numberofaddress')  # Title of the plot
+plt.title(f'Boxplot of numberofaddress')
 plt.show()
 
 """==>maybe realted
@@ -197,35 +205,24 @@ complain_churnrate.sort_values(by='churn_ratio', ascending=False)
 ###Check orderamounthike, couponused, ordercount, daysincelastorder
 """
 
-orderamounthike_churnrate = calculate_churn_ratio(df, 'orderamounthikefromlastyear')
-orderamounthike_churnrate.sort_values(by='churn_ratio', ascending=False)
-
-couponuse_churnrate = calculate_churn_ratio(df, 'couponused')
-couponuse_churnrate.sort_values(by='churn_ratio', ascending=False)
-
-daysincelastorder_churnrate = calculate_churn_ratio(df, 'daysincelastorder')
-daysincelastorder_churnrate.sort_values(by='churn_ratio', ascending=False)
-
-ordercount_churnrate = calculate_churn_ratio(df, 'ordercount')
-ordercount_churnrate.sort_values(by='churn_ratio', ascending=False)
-
 cols = ['orderamounthikefromlastyear', 'couponused', 'ordercount', 'daysincelastorder']
 num_cols = df[cols]
 
-plt.figure(figsize=(10, 8))
+plt.figure(figsize=(18, 5))  #
 
 for i, col in enumerate(cols, 1):
-    plt.subplot(len(cols), 1, i)
+    plt.subplot(1, len(cols), i)  # 1 hàng và 4 cột
     sns.boxplot(data=df, x='churn', y=col)
 
-    plt.title(f'Distribution of {col} between Churn and Non-Churn')
+    plt.title(f'Distribution of {col}\nbetween Churn and Non-Churn')
+
     plt.xlabel('Churn')
     plt.ylabel(col)
 
 plt.tight_layout()
 plt.show()
 
-"""=> couponused, ordercount are related
+"""orderamounthike,  ordercount is not related. daysincelastorder is related. couponused  maybe relate, need to check more
 
 ###Check gender
 """
@@ -241,7 +238,7 @@ gender_churnrate
 devide_churnrate = calculate_churn_ratio(df, 'preferredlogindevice')
 devide_churnrate
 
-"""=> devide no related
+"""=> devide related
 
 ###Check PreferredPaymentMode
 """
@@ -249,9 +246,7 @@ devide_churnrate
 payment_churnrate = calculate_churn_ratio(df, 'preferredpaymentmode')
 payment_churnrate.sort_values(by='churn_ratio', ascending=False)
 
-payment_churnrate.sort_values(by='churn_cus', ascending=False)
-
-"""=> maybe paymen not ralated
+"""=> maybe paymen is ralated
 
 ###Check PreferedOrderCat
 """
@@ -272,7 +267,7 @@ marital_churnrate.sort_values(by='churn_ratio', ascending=False)
 #Feature Transforming
 """
 
-list_columns_to_drop = ['customerid','gender','maritalstatus','preferredpaymentmode','preferredlogindevice','orderamounthikefromlastyear']
+list_columns_to_drop = ['customerid','gender','maritalstatus','orderamounthikefromlastyear', 'ordercount']
 df_drop = df.drop(columns = list_columns_to_drop)
 cate_columns = df_drop.loc[:, df_drop.dtypes == object].columns.tolist()
 
@@ -359,7 +354,7 @@ print(balanced_accuracy_train,balanced_accuracy_val)
 """
 
 from sklearn.model_selection import GridSearchCV
-# Xác định các params để GridSearch chạy qua thử (nếu code chạy lâu quá, có thể giảm bớt số lượng params lại)
+# Xác định các params để GridSearch chạy qua thử (
 param_grid = {
     'n_estimators': [10, 50, 100, 200],
     'max_depth': [None, 10, 20, 30],
@@ -369,7 +364,6 @@ param_grid = {
 }
 
 # Use GridSearchCV to find the best parameters
-# Ở đây mình dùng scoring là balanced_accuracy, mọi người có thể tùy chỉnh tùy vào mục đích model của mn nhé
 grid_search = GridSearchCV(clf_rand, param_grid, cv=5, scoring='balanced_accuracy')
 
 # Fit the model
@@ -393,63 +387,3 @@ y_ranf_aft_val = clf_rand_after.predict(x_val)
 print(f'Balance accuracy of train set: {balanced_accuracy_score(y_train, y_ranf_aft_train)}')
 print(f'Balance accuracy of val set: {balanced_accuracy_score(y_val, y_ranf_aft_val)}')
 
-"""#Cluster churn customers
-
-
-"""
-
-df_churn = df[df['churn']==1]
-df_churn.drop(columns = ['customerid','churn'],inplace=True)
-df_churn.head()
-
-#Transform data:
-encoded_df = pd.get_dummies(df_churn, columns = cate_columns,drop_first=True)
-encoded_df.head(3)
-
-encoded_df = encoded_df.select_dtypes(include=[float, int])
-
-#Normalization:
-scaler = MinMaxScaler()
-model=scaler.fit(encoded_df)
-scaled_data=model.transform(encoded_df)
-scaled_df = pd.DataFrame(scaled_data, columns = encoded_df.columns.tolist())
-
-scaled_df.describe()
-
-scaled_df.info()
-
-"""Dimension Reduction"""
-
-from sklearn.decomposition import PCA
-pca=PCA(n_components=3)
-pca.fit(scaled_df)
-PCA_df=pd.DataFrame(pca.transform(scaled_df), columns=['PC1', 'PC2', 'PC3'])
-PCA_df.head()
-
-pca.explained_variance_ratio_
-
-"""Choosing K"""
-
-from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt, numpy as np
-from mpl_toolkits.mplot3d import Axes3D
-from sklearn.cluster import AgglomerativeClustering
-from matplotlib.colors import ListedColormap
-
-ss = []
-max_clusters = 10
-for i in range(1, max_clusters+1):
-    kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
-    kmeans.fit(scaled_df)
-    # Inertia method returns WCSS for that model
-    ss.append(kmeans.inertia_)
-
-# Plot the Elbow method
-plt.figure(figsize=(10,5))
-plt.plot(range(1, max_clusters+1), ss, marker='o', linestyle='--')
-plt.title('Elbow Method')
-plt.xlabel('Number of clusters')
-plt.ylabel('WCSS')
-plt.show()
-
-"""=> We can not cluster churn customers"""
