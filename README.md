@@ -294,5 +294,5 @@ With these optimized parameters, the performance of the Random Forest model impr
 
 As seen from the table, the balanced accuracy on the training set increased to 0.94, and the validation set achieved 0.92. These results show that the model has become more accurate and consistent across both the training and validation datasets, reflecting a significant improvement compared to the initial model performance.
 
-## IV. Introduction
+## IV. Conclusion
 This project successfully developed a machine learning model to predict churned users for an ecommerce firm, helping to identify potential customers for targeted promotions. By applying data cleaning, EDA, and hyperparameter tuning, we improved the Random Forest model's performance. Tthe importance of data preprocessing and model fine-tuning in achieving accurate predictions, as well as how hyperparameter optimization can improve model performance.he project emphasizes
